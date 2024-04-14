@@ -1,7 +1,7 @@
-package spring.hw5.repository;
+package spring.hw11.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import spring.hw5.model.Issue;
+import spring.hw11.model.Issue;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;

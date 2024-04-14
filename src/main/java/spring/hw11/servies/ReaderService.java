@@ -1,11 +1,11 @@
-package spring.hw5.servies;
+package spring.hw11.servies;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import spring.hw5.model.Issue;
-import spring.hw5.model.Reader;
-import spring.hw5.repository.IssueRepository;
-import spring.hw5.repository.ReaderRepository;
+import spring.hw11.model.Issue;
+import spring.hw11.model.Reader;
+import spring.hw11.repository.IssueRepository;
+import spring.hw11.repository.ReaderRepository;
 
 import java.util.List;
 

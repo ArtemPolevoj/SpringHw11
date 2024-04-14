@@ -1,4 +1,4 @@
-package spring.hw5.controllers;
+package spring.hw11.controllers;
 
 import lombok.Data;
 

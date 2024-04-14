@@ -1,4 +1,4 @@
-package spring.hw5.model;
+package spring.hw11.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
@@ -6,16 +6,15 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Data
-@Table(name = "readers")
+@Table(name = "books")
 @NoArgsConstructor
-public class Reader {
-
+public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private  String name;
+    private String name;
 
-    public Reader(String name) {
+    public Book(String name) {
         this.name = name;
     }
 }

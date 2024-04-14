@@ -1,12 +1,12 @@
-package spring.hw5.controllers;
+package spring.hw11.controllers;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import spring.hw5.model.Issue;
-import spring.hw5.servies.IssueService;
+import spring.hw11.model.Issue;
+import spring.hw11.servies.IssueService;
 
 import java.util.NoSuchElementException;
 import java.util.TreeMap;
