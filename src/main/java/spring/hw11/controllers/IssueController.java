@@ -1,5 +1,7 @@
 package spring.hw11.controllers;
 
+import io.micrometer.core.instrument.Counter;
+import io.micrometer.core.instrument.Metrics;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -18,6 +20,10 @@ import java.util.TreeMap;
 public class IssueController {
 
     private final IssueService service;
+    private final Counter countIssue = Metrics.counter("count_issue");
+    private final Counter errorIssue = Metrics.counter("count_error_issue");
+    private final Counter maxCountIssue = Metrics.counter("max_count_issue");
+    private final Counter returnedIssue = Metrics.counter("count_issue_returned");
 
     @PostMapping
     public ResponseEntity<Issue> issueBook(@RequestBody IssueRequest issueRequest) {
@@ -27,12 +33,15 @@ public class IssueController {
         try {
             Issue issue = service.createIssue(issueRequest);
             if (issue.getIdReader() != -1L && issue.getIdBook() != -1L) {
+                countIssue.increment();
                 return ResponseEntity.status(HttpStatus.CREATED).body(issue);
             } else {
+                maxCountIssue.increment();
                 return ResponseEntity.status(HttpStatus.CONFLICT).build();
             }
 
         } catch (NoSuchElementException e) {
+            errorIssue.increment();
             return ResponseEntity.notFound().build();
         }
     }
@@ -42,6 +51,7 @@ public class IssueController {
         try {
             return ResponseEntity.status(HttpStatus.OK).body(service.findById(id));
         } catch (NoSuchElementException e) {
+            errorIssue.increment();
             return ResponseEntity.notFound().build();
         }
     }
@@ -50,9 +60,12 @@ public class IssueController {
     public ResponseEntity<TreeMap<String, String>> returnedAt(@PathVariable Long issueId) {
         try {
             service.setReturnedAt(issueId);
+            returnedIssue.increment();
             return ResponseEntity.status(HttpStatus.OK).body(service.findById(issueId));
         } catch (NoSuchElementException e) {
+            errorIssue.increment();
             return ResponseEntity.notFound().build();
         }
     }
+
 }
